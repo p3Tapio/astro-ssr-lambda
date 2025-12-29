@@ -6,10 +6,18 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/node": "^9.5.1",
+    "@picocss/pico": "^2.1.1",
     "astro": "^5.16.6"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "sass": "^1.97.1"
   }
 }

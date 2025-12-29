@@ -1,0 +1,27 @@
+---
+import "../style/pico.scss";
+import "../style/global.scss";
+
+interface MainLayoutProps {
+  title?: string;
+  h1?: string;
+}
+
+const { title = "Astro", h1 }: MainLayoutProps = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="container">
+      {h1 && <h1>{h1}</h1>}
+      <slot />
+    </div>
+  </body>
+</html>
