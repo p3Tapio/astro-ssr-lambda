@@ -7,7 +7,7 @@ interface MainLayoutProps {
   h1?: string;
 }
 
-const { title = "Astro", h1 }: MainLayoutProps = Astro.props;
+const { title, h1 }: MainLayoutProps = Astro.props;
 ---
 
 <html lang="en">
@@ -16,11 +16,20 @@ const { title = "Astro", h1 }: MainLayoutProps = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{title ? `Astro | ${title}` : "Astro"}</title>
   </head>
   <body>
     <div class="container">
       {h1 && <h1>{h1}</h1>}
+      <nav>
+        <li>
+          <a class="contrast" href="/">Home</a>
+        </li>
+        <li>
+          <a class="contrast" href="/about">About</a>
+        </li>
+        <!--Add more -->
+      </nav>
       <slot />
     </div>
   </body>
