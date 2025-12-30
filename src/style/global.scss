@@ -1,24 +1,6 @@
-@use "./variables.scss" as *;
-
-.container {
-  margin-top: $spacing-default;
-}
-
-nav {
-  display: flex;
-  margin-bottom: $spacing-larger;
-  border-bottom: 1px solid var(--pico-contrast);
-  padding-bottom: $spacing-smaller;
-
-  li {
-    list-style: none;
-
-    &:not(:first-child) {
-      margin-left: $spacing-default;
-    }
-
-    a {
-      text-decoration: none;
-    }
-  }
+p,
+h1,
+button {
+  margin: 0;
+  padding: 0;
 }
