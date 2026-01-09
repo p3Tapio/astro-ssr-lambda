@@ -1,11 +1,17 @@
-// @ts-check
-
-import node from "@astrojs/node";
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
+import astroAws from "@astro-aws/adapter";
 
 export default defineConfig({
   output: "server",
-  adapter: node({ mode: "standalone" }),
+  adapter: astroAws({
+    mode: "ssr",
+  }),
+  image: {
+    service: passthroughImageService(),
+  },
+  build: {
+    assets: "assets",
+  },
   vite: {
     build: {
       rollupOptions: {
@@ -15,7 +21,6 @@ export default defineConfig({
               return "styles";
             }
           },
-          assetFileNames: "_astro/[name].[hash][extname]",
         },
       },
     },

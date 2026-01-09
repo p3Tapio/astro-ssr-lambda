@@ -1,16 +1,20 @@
-import * as cdk from 'aws-cdk-lib/core';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as cdk from "aws-cdk-lib/core";
+import { Construct } from "constructs";
+import { S3Bucket } from "./constructs/s3-bucket";
+import { SSRLambda } from "./constructs/ssr-lambda";
+import * as path from "path";
 
 export class AstroSSRStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const s3Bucket = new S3Bucket(this, "StaticAssets", {
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // TODO: retain?
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new SSRLambda(this, "SSRLambda", {
+      staticBucket: s3Bucket.bucket,
+      serverCodePath: path.join(__dirname, "../../dist/lambda"),
+    });
   }
 }

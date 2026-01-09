@@ -4,18 +4,18 @@
   "version": "0.0.1",
   "scripts": {
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && echo '{\"type\":\"module\"}' > dist/lambda/package.json",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.1",
     "@picocss/pico": "^2.1.1",
     "astro": "^5.16.6"
   },
   "devDependencies": {
+    "@astro-aws/adapter": "^0.11.0",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "sass": "^1.97.1"

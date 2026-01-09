@@ -11,3 +11,4 @@ npm-debug.log*
 .env.production
 # macOS-specific files
 .DS_Store
+memo-to-myself.md
