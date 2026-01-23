@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import { S3Bucket } from "./constructs/s3-bucket";
 import { SSRLambda } from "./constructs/ssr-lambda";
 import * as path from "path";
+import { CloudFrontDistribution } from "./constructs/cloudfront";
 
 export class AstroSSRStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -12,9 +13,13 @@ export class AstroSSRStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY, // TODO: retain?
     });
 
-    new SSRLambda(this, "SSRLambda", {
-      staticBucket: s3Bucket.bucket,
+    const ssrLambda = new SSRLambda(this, "SSRLambda", {
       serverCodePath: path.join(__dirname, "../../dist/lambda"),
+    });
+
+    new CloudFrontDistribution(this, "CDN", {
+      bucket: s3Bucket.bucket,
+      lambdaFunctionUrl: ssrLambda.functionUrl,
     });
   }
 }

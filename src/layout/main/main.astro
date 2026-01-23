@@ -16,6 +16,22 @@ const { title, h1 }: MainLayoutProps = Astro.props;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <style is:inline>
+      /* load some color to mitigate fouc*/
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        background-color: #fff;
+        color: #373c44;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #13171f;
+          color: #c2c7d0;
+        }
+      }
+    </style>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
