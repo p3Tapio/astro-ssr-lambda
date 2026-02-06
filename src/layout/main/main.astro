@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from "astro:transitions";
+
 import "../../style/pico.scss";
 import "../../style/global.scss";
 import "./main.scss";
@@ -15,24 +17,26 @@ const { title, h1 }: MainLayoutProps = Astro.props;
 
 <html lang="en">
   <head>
+    <ClientRouter />
     <meta charset="utf-8" />
     <style is:inline>
-      /* load some color to mitigate fouc*/
+      /* inlined  some color to mitigate fouc*/
       :root {
         color-scheme: light dark;
       }
       body {
         background-color: #fff;
-        color: #373c44;
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #13171f;
-          color: #c2c7d0;
+        @media (prefers-color-scheme: dark) {
+          background-color: rgb(19, 22.5, 30.5);
         }
       }
     </style>
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/favicon.svg"
+      data-astro-transition-persist="favicon"
+    />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title ? `Astro | ${title}` : "Astro"}</title>
@@ -51,20 +55,22 @@ const { title, h1 }: MainLayoutProps = Astro.props;
       </div>
       <slot />
     </main>
-    <script>
-      const button = document.getElementById("mobile-toggle");
-      const nav = document.getElementById("mobile-nav");
+    <script is:inline>
+      function initMobileNav() {
+        const button = document.getElementById("mobile-toggle");
+        const nav = document.getElementById("mobile-nav");
 
-      button?.addEventListener("click", () => {
-        nav?.classList.toggle("open");
-      });
+        button?.addEventListener("click", () => {
+          nav?.classList.toggle("open");
+        });
 
-      document.addEventListener("click", (e) => {
-        const target = e.target as HTMLElement;
-        if (nav && !nav.contains(target) && !button?.contains(target)) {
-          nav.classList.remove("open");
-        }
-      });
+        document.addEventListener("click", (e) => {
+          if (nav && !nav.contains(e.target) && !button?.contains(e.target)) {
+            nav.classList.remove("open");
+          }
+        });
+      }
+      document.addEventListener("astro:page-load", initMobileNav);
     </script>
   </body>
 </html>
