@@ -6,6 +6,7 @@ import {
   Distribution,
   OriginRequestPolicy,
   PriceClass,
+  ResponseHeadersPolicy,
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { Construct } from "constructs";
@@ -34,12 +35,29 @@ export class CloudFrontDistribution extends Construct {
     const { bucket, lambdaFunctionUrl } = props;
 
     const s3Origin = S3BucketOrigin.withOriginAccessControl(bucket);
-    const lambdaOrigin = FunctionUrlOrigin.withOriginAccessControl(lambdaFunctionUrl);
+    const lambdaOrigin =
+      FunctionUrlOrigin.withOriginAccessControl(lambdaFunctionUrl);
+    const responseHeadersPolicy = new ResponseHeadersPolicy(
+      this,
+      "ResponseHeadersPolicy",
+      {
+        customHeadersBehavior: {
+          customHeaders: [
+            {
+              header: "Cache-Control",
+              value: "public, max-age=300", // = 5 minutes  ¯\_(ツ)_/¯
+              override: true,
+            },
+          ],
+        },
+      },
+    );
 
     const commonBehaviour = {
       viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
       compress: true,
+      responseHeadersPolicy,
     };
 
     this.distribution = new Distribution(this, "AstroSSRDistribution", {
