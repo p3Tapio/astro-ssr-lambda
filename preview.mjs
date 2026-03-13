@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { join } from "path";
 import { readFile } from "fs/promises";
-import { handler } from './dist/server/entry.mjs';
+import { handler } from "./dist/server/entry.mjs";
 
 const server = createServer(async (req, res) => {
   const url = req.url.split("?")[0];
@@ -9,6 +9,10 @@ const server = createServer(async (req, res) => {
   if (url.startsWith("/assets/")) {
     const filePath = join(process.cwd(), "dist/client", url);
     const content = await readFile(filePath);
+    if (url.endsWith(".js")) {
+      res.setHeader("Content-Type", "application/javascript");
+    }
+
     return res.end(content);
   }
 

@@ -1,9 +1,11 @@
 import { defineConfig, passthroughImageService } from "astro/config";
 import lambdaAdapter from "./adapter";
+import react from "@astrojs/react";
 
 export default defineConfig({
   output: "server",
   adapter: lambdaAdapter(),
+  integrations: [react()],
   prefetch: false,
   image: {
     service: passthroughImageService(),
@@ -17,7 +19,10 @@ export default defineConfig({
         output: {
           entryFileNames: (chunkInfo) => {
             if (chunkInfo.name.includes("ClientRouter")) {
-              return "assets/router.[hash].js"; // TODO toimiiko? 
+              return "assets/router.[hash].js";
+            }
+            if (chunkInfo.facadeModuleId?.includes("components")) {
+              return "assets/components.[hash].js"
             }
             return "assets/[name].[hash].js";
           },
