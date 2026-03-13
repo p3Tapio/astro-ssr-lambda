@@ -1,12 +1,10 @@
 import { defineConfig, passthroughImageService } from "astro/config";
-import astroAws from "@astro-aws/adapter";
+import lambdaAdapter from "./adapter";
 
 export default defineConfig({
   output: "server",
+  adapter: lambdaAdapter(),
   prefetch: false,
-  adapter: astroAws({
-    mode: "ssr",
-  }),
   image: {
     service: passthroughImageService(),
   },

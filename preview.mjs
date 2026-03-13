@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { join } from "path";
 import { readFile } from "fs/promises";
-import { handler } from "./dist/lambda/entry.mjs";
+import { handler } from './dist/server/entry.mjs';
 
 const server = createServer(async (req, res) => {
   const url = req.url.split("?")[0];

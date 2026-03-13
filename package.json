@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "astro dev",
-    "build": "astro build && echo '{\"type\":\"module\"}' > dist/lambda/package.json",
+    "build": "astro build && echo '{\"type\":\"module\"}' > dist/server/package.json",
     "preview": "npm run build && node preview.mjs",
     "astro": "astro",
     "format": "prettier --write .",
@@ -15,7 +15,7 @@
     "astro": "^5.16.6"
   },
   "devDependencies": {
-    "@astro-aws/adapter": "^0.11.0",
+    "@types/aws-lambda": "^8.10.160",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "sass": "^1.97.1"

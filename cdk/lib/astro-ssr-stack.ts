@@ -14,7 +14,7 @@ export class AstroSSRStack extends cdk.Stack {
     });
 
     const ssrLambda = new SSRLambda(this, "SSRLambda", {
-      serverCodePath: path.join(__dirname, "../../dist/lambda"),
+      serverCodePath: path.join(__dirname, "../../dist/server"),
     });
 
     new CloudFrontDistribution(this, "CDN", {
