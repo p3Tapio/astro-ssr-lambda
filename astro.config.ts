@@ -15,6 +15,7 @@ export default defineConfig({
   },
   vite: {
     build: {
+      cssCodeSplit: false,
       rollupOptions: {
         output: {
           entryFileNames: (chunkInfo) => {
@@ -22,14 +23,12 @@ export default defineConfig({
               return "assets/router.[hash].js";
             }
             if (chunkInfo.facadeModuleId?.includes("components")) {
-              return "assets/components.[hash].js"
+              return "assets/components.[hash].js";
+            }
+            if (chunkInfo.facadeModuleId?.includes("node_modules")) {
+              return "assets/vendor.[hash].js";
             }
             return "assets/[name].[hash].js";
-          },
-          manualChunks: (id) => {
-            if (id.includes(".css") || id.includes(".scss")) {
-              return "styles";
-            }
           },
         },
       },

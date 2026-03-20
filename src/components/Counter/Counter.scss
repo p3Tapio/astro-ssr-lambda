@@ -1,0 +1,23 @@
+@use "../../style/variables.scss" as *;
+
+.counter {
+  display: flex;
+  align-items: center;
+  margin-top: 28px;
+
+  &__value {
+    width: 56px;
+    text-align: end;
+  }
+
+  .button {
+    width: 42px;
+    font-size: var(--pico-font-size);
+    font-weight: 500;
+    margin-right: $spacing-default;
+
+    &:last-of-type {
+      margin-right: $spacing-larger;
+    }
+  }
+}

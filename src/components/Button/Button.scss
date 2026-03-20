@@ -1,0 +1,12 @@
+@use "../../style/variables.scss" as *;
+
+.button {
+  color: var(--pico-color);
+  padding: $spacing-smaller $spacing-default;
+  border: var(--pico-border-width) solid var(--pico-color);
+  border-radius: var(--pico-border-radius);
+
+  &:hover {
+    border-color: var(--pico-contrast-hover-border);
+  }
+}
