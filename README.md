@@ -1,4 +1,4 @@
-# Astro SS
+# Astro SSR
 
 Templetate for server-side rendered Astro application.
 
@@ -14,7 +14,7 @@ Templetate for server-side rendered Astro application.
 ## Project Structure
 
 ```
-├── adapter/          # Custom Astro adapter for Lambda
+├── adapter/         # Custom Astro adapter for Lambda
 ├── cdk/             # AWS CDK infrastructure code
 ├── src/             # Astro application source
 │   ├── components/  # React components
