@@ -1,6 +1,6 @@
 # Astro SSR
 
-Templetate for server-side rendered Astro application.
+Template for server-side rendered Astro application.
 
 ## Stack
 
